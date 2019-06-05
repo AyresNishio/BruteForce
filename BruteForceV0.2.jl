@@ -146,7 +146,7 @@ Crit=Dict()                    # Dicionário onde serão armazenadas as tuplas c
 # Da forma: [|barra de| |barra para| |ligado ou desligado|]
 medidas = vetMed(A)
 #Vetor de medidas Inicial 6
-medidasIni=[1 2
+medidasAtivas=[1 2
             2 3
             4 5
             4 6
