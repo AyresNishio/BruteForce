@@ -113,7 +113,7 @@ end
 
 ## Descomentar o sistema desejado
 
-# Matriz de conexões do sistema 16 barras
+# Matriz de conexões do sistema 6 barras
 A=[0 1 1 0 1 0
    1 0 1 0 0 0
    1 1 0 1 0 0
