@@ -79,7 +79,7 @@ function jacobiana(medidas,A,ref)
                 nbc=Int(sum(A[de,:]))
                 for l=1:n
                     if (l==de) H[med,l]=nbc
-                    else       H[med,l]=A[de,l] end
+                    else       H[med,l]=-A[de,l] end
                 end
             end
             med=med+1
@@ -143,15 +143,15 @@ Crit=Dict()                    # Dicionário onde serão armazenadas as tuplas c
 # Da forma: [|barra de| |barra para| |ligado ou desligado|]
 medidas = vetMed(A)
 #Vetor de medidas Inicial 6
-medidasIni=[1 2
-            2 3
-            4 5
-            4 6
-            5 4
-            1 1
-            3 3
-            5 5
-            6 6]
+medidasAtivas=[1 2
+               2 3
+               4 5
+               4 6
+               5 4
+               1 1
+               3 3
+               5 5
+               6 6]
 
 # #Vetor de medidas Inicial 14
 # medidasAtivas=[1	2
@@ -177,7 +177,9 @@ medidasIni=[1 2
 
 # Ativa, na matriz medidas, as medidas em medidasAtivas
 (medidas,actIdx)=altMed(medidas,medidasAtivas,1)
-#H=jacobiana(medidas,A,1)
+# H=jacobiana(medidas,A,1)
+# G=transpose(H)*H
+# detG=det(G)
 clearconsole()
 for card=1:3
     println("--------Cardinalidade $card:----------")
