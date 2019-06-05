@@ -110,21 +110,29 @@ function contemKcrit(i, card)
     return contid
 end
 
-# Matriz de conexões do sistema padrão ieee de 14 barras
-A = [0	1	0	0	1	0	0	0	0	0	0	0	0	0
-    1	0	1	1	1	0	0	0	0	0	0	0	0	0
-    0	1	0	1	0	0	0	0	0	0	0	0	0	0
-    0	1	1	0	1	0	1	0	1	0	0	0	0	0
-    1	1	0	1	0	1	0	0	0	0	0	0	0	0
-    0	0	0	0	1	0	0	0	0	0	1	1	1	0
-    0	0	0	1	0	0	0	1	1	0	0	0	0	0
-    0	0	0	0	0	0	1	0	0	0	0	0	0	0
-    0	0	0	1	0	0	1	0	0	1	0	0	0	1
-    0	0	0	0	0	0	0	0	1	0	1	0	0	0
-    0	0	0	0	0	1	0	0	0	1	0	0	0	0
-    0	0	0	0	0	1	0	0	0	0	0	0	1	0
-    0	0	0	0	0	1	0	0	0	0	0	1	0	1
-    0	0	0	0	0	0	0	0	1	0	0	0	1	0]
+# Matriz de conexões do sistema 16 barras
+A=[0 1 1 0 1 0
+   1 0 1 0 0 0
+   1 1 0 1 0 0
+   0 0 1 0 1 1
+   1 0 0 1 0 0
+   0 0 0 1 0 0]
+
+# # Matriz de conexões do sistema padrão ieee de 14 barras
+# A = [0	1	0	0	1	0	0	0	0	0	0	0	0	0
+#     1	0	1	1	1	0	0	0	0	0	0	0	0	0
+#     0	1	0	1	0	0	0	0	0	0	0	0	0	0
+#     0	1	1	0	1	0	1	0	1	0	0	0	0	0
+#     1	1	0	1	0	1	0	0	0	0	0	0	0	0
+#     0	0	0	0	1	0	0	0	0	0	1	1	1	0
+#     0	0	0	1	0	0	0	1	1	0	0	0	0	0
+#     0	0	0	0	0	0	1	0	0	0	0	0	0	0
+#     0	0	0	1	0	0	1	0	0	1	0	0	0	1
+#     0	0	0	0	0	0	0	0	1	0	1	0	0	0
+#     0	0	0	0	0	1	0	0	0	1	0	0	0	0
+#     0	0	0	0	0	1	0	0	0	0	0	0	1	0
+#     0	0	0	0	0	1	0	0	0	0	0	1	0	1
+#     0	0	0	0	0	0	0	0	1	0	0	0	1	0]
 
 n=size(A,1)                    # Número de barras
 m=Int(sum(A)/2)                # Número de ramos
@@ -134,32 +142,42 @@ Crit=Dict()                    # Dicionário onde serão armazenadas as tuplas c
 # Constroi o vetor que organiza as medidas disponíveis.
 # Da forma: [|barra de| |barra para| |ligado ou desligado|]
 medidas = vetMed(A)
+#Vetor de medidas Inicial 6
+medidasIni=[1 2
+            2 3
+            4 5
+            4 6
+            5 4
+            1 1
+            3 3
+            5 5
+            6 6]
 
-#Vetor de medidas Inicial
-medidasAtivas=[1	2
-               1	5
-               2	3
-               2	5
-               4	7
-               4	9
-               5	2
-               6	11
-               6	12
-               6	13
-               7	8
-               9	10
-               9	14
-               12	6
-               12	13
-               3	3
-               6	6
-               9	9
-               10	10
-               12	12]
+# #Vetor de medidas Inicial 14
+# medidasAtivas=[1	2
+#                1	5
+#                2	3
+#                2	5
+#                4	7
+#                4	9
+#                5	2
+#                6	11
+#                6	12
+#                6	13
+#                7	8
+#                9	10
+#                9	14
+#                12	6
+#                12	13
+#                3	3
+#                6	6
+#                9	9
+#                10	10
+#                12	12]
 
 # Ativa, na matriz medidas, as medidas em medidasAtivas
 (medidas,actIdx)=altMed(medidas,medidasAtivas,1)
-
+#H=jacobiana(medidas,A,1)
 clearconsole()
 for card=1:3
     println("--------Cardinalidade $card:----------")
@@ -176,7 +194,7 @@ for card=1:3
                 medidasR[i[j],3]=0            # Desativa medidas (pertencentes à tupla analisada)
             end
             # Análise de Observabilidade
-            H=jacobiana(medidasR,A,2)
+            H=jacobiana(medidasR,A,1)
             G=transpose(H)*H
             detG=det(G)
             if detG>0.0001
