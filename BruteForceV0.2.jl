@@ -1,4 +1,5 @@
 clearconsole()
+#TESTANDO GIT_HUUB
 using LinearAlgebra
 using Combinatorics
 
@@ -110,7 +111,9 @@ function contemKcrit(i, card)
     return contid
 end
 
-# Matriz de conexões do sistema 16 barras
+## Descomentar o sistema desejado
+
+# Matriz de conexões do sistema 6 barras
 A=[0 1 1 0 1 0
    1 0 1 0 0 0
    1 1 0 1 0 0
@@ -190,7 +193,7 @@ for card=1:3
         if (!(contemKcrit(i, card)))          # Evita análise de tuplas que contenham k-tuplas críticas
             medidasR=copy(medidas)            # Preserva matriz de medidas
             for j=1:card                      # Para toda unidade medida da tupla que está sendo analisada...
-                # de=Int(medidasR[i[j],1])    # Parece que não faz nada...
+                # de=Int(medidasR[i[j],1])    # Parece que não faz nada...Inutil
                 # para=Int(medidasR[i[j],2])
 
                 medidasR[i[j],3]=0            # Desativa medidas (pertencentes à tupla analisada)
